@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Anupam Dutta - Python Backend Engineer & Generative AI Specialist. Expert in FastAPI, LangChain, LangGraph, and scalable backend development.">
+  <meta name="keywords" content="Python Developer, Backend Engineer, GenAI, LLM Engineer, FastAPI, LangChain">
+  <meta name="author" content="Anupam Dutta">
+  <title>Anupam Dutta | Python Backend Engineer & GenAI Specialist</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+</head>
+
+<body>
+  <!-- Particles Background -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#" class="nav-logo">Anupam<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="blog.html" class="btn btn-primary" style="padding: 0.5rem 1rem;">Blog</a></li>
+      </ul>
+      <div class="nav-toggle">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span class="dot"></span>
+          <span>Available for opportunities</span>
+        </div>
+        <h1>Hi, I'm <span class="text-gradient">Anupam Dutta</span></h1>
+        <p class="hero-subtitle">
+          <span class="typing-text" id="typing"></span>
+        </p>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn btn-primary">
+            <i class="fas fa-paper-plane"></i> Get in Touch
+          </a>
+          <a href="#projects" class="btn btn-secondary">
+            <i class="fas fa-code"></i> View Projects
+          </a>
+        </div>
+        <div class="hero-social">
+          <a href="https://www.linkedin.com/in/kinganupamdutta/" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://github.com/kinganupamdutta27/" target="_blank" title="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="mailto:anupamdutta27121998.in@gmail.com" title="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">About Me</span>
+        <h2>Passionate about <span class="text-gradient">Innovative Solutions</span></h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-image reveal">
+          <img src="images/profile.jpg" alt="Anupam Dutta"
+            onerror="this.src='https://ui-avatars.com/api/?name=Anupam+Dutta&size=400&background=667eea&color=fff&bold=true'">
+        </div>
+        <div class="about-content reveal">
+          <p>I am a <strong>Computer Science Engineer</strong> and <strong>Python Backend Developer</strong> with
+            experience building scalable web applications, Generative AI solutions, and enterprise-grade systems.</p>
+          <p>Currently working as a <strong>Junior Python Developer at Weavers Web</strong>, I focus on backend
+            engineering using Python, FastAPI, Django, RESTful APIs, and microservices architectures, with a strong
+            emphasis on performance, scalability, and maintainability.</p>
+          <p>My recent work involves designing and implementing <strong>Generative AI and LLM-based systems</strong>,
+            including RAG pipelines and agentic workflows using <strong>LangChain</strong> and
+            <strong>LangGraph</strong>.
+          </p>
+          <div class="about-stats">
+            <div class="stat-item">
+              <div class="stat-number">2+</div>
+              <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">10+</div>
+              <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">6+</div>
+              <div class="stat-label">Certifications</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Technical Expertise</span>
+        <h2>My <span class="text-gradient">Skills</span></h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-category glass-card reveal">
+          <h4><i class="fas fa-code"></i> Programming Languages</h4>
+          <div class="skill-list">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">C</span>
+          </div>
+        </div>
+        <div class="skill-category glass-card reveal">
+          <h4><i class="fas fa-server"></i> Backend Development</h4>
+          <div class="skill-list">
+            <span class="skill-tag">FastAPI</span>
+            <span class="skill-tag">Django</span>
+            <span class="skill-tag">Flask</span>
+            <span class="skill-tag">RESTful APIs</span>
+            <span class="skill-tag">SQLAlchemy</span>
+            <span class="skill-tag">JWT</span>
+            <span class="skill-tag">Microservices</span>
+            <span class="skill-tag">Stripe</span>
+            <span class="skill-tag">Payment Gateway Integration</span>
+
+          </div>
+        </div>
+        <div class="skill-category glass-card reveal">
+          <h4><i class="fas fa-robot"></i> AI/ML & GenAI</h4>
+          <div class="skill-list">
+            <span class="skill-tag">GPT-4</span>
+            <span class="skill-tag">LLM</span>
+            <span class="skill-tag">Llama</span>
+            <span class="skill-tag">MultiAgent AI</span>
+            <span class="skill-tag">RAG</span>
+            <span class="skill-tag">Agentic AI</span>
+            <span class="skill-tag">Prompt Engineering</span>
+            <span class="skill-tag">LangSmith</span>
+            <span class="skill-tag">HuggingFace</span>
+            <span class="skill-tag">OpenAI</span>
+            <span class="skill-tag">Pinecone</span>
+            <span class="skill-tag">LangGraph</span>
+            <span class="skill-tag">LangChain</span>
+            <span class="skill-tag">FAISS</span>
+          </div>
+        </div>
+        <div class="skill-category glass-card reveal">
+          <h4><i class="fas fa-database"></i> Databases & Caching</h4>
+          <div class="skill-list">
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">Redis</span>
+            <span class="skill-tag">SQLite</span>
+          </div>
+        </div>
+        <div class="skill-category glass-card reveal">
+          <h4><i class="fas fa-cloud"></i> DevOps & Cloud</h4>
+          <div class="skill-list">
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub Actions</span>
+            <span class="skill-tag">AWS</span>
+          </div>
+        </div>
+        <div class="skill-category glass-card reveal">
+          <h4><i class="fas fa-puzzle-piece"></i> Integration</h4>
+          <div class="skill-list">
+            <span class="skill-tag">Software AG webMethods</span>
+            <span class="skill-tag">EDI Workflows</span>
+            <span class="skill-tag">Microservices</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Career Path</span>
+        <h2>Work <span class="text-gradient">Experience</span></h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass-card">
+            <span class="timeline-date">April 2025 - Present</span>
+            <h4>Jr. Python Developer</h4>
+            <p class="timeline-company">Weavers Web Solutions • Kolkata</p>
+            <ul>
+              <li>Developed RAG systems using LangGraph and LangChain for context-aware response generation</li>
+              <li>Engineered GenAI applications using FastAPI, improving API response time by 45%</li>
+              <li>Built agentic RAG system using GPT-4.1, reducing token costs by 80%</li>
+              <li>Boosted OTP authentication performance by 70% with Redis caching</li>
+              <li>Integrated PostgreSQL with SQLAlchemy ORM for scalable data handling</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass-card">
+            <span class="timeline-date">Nov 2024 - March 2025</span>
+            <h4>Python Developer Intern</h4>
+            <p class="timeline-company">Weavers Web Solutions • Kolkata</p>
+            <ul>
+              <li>Contributed to scalable, production-ready APIs in microservices architecture</li>
+              <li>Reduced response latency by 35% in FastAPI-based microservices</li>
+              <li>Optimized data processing pipelines with 70% improvement in efficiency</li>
+              <li>Improved code coverage by 60% through unit tests and code reviews</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass-card">
+            <span class="timeline-date">Dec 2023 - Oct 2024</span>
+            <h4>Programmer Analyst Trainee</h4>
+            <p class="timeline-company">Cognizant • Kolkata</p>
+            <ul>
+              <li>Collaborated with cross-functional Agile teams on enterprise-grade applications</li>
+              <li>Developed and optimized EDI workflows using Software AG webMethods</li>
+              <li>Improved process efficiency by 70%</li>
+              <li>Utilized Java for backend development and SQL for data retrieval</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Portfolio</span>
+        <h2>Featured <span class="text-gradient">Projects</span></h2>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card glass-card reveal">
+          <div class="project-image">
+            <img src="images/projects/plugg/logo.webp" alt="Plugg">
+            <div class="project-overlay">
+              <a href="#" class="btn btn-primary" style="padding: 0.5rem 1rem;"><i
+                  class="fas fa-external-link-alt"></i></a>
+              <a href="#" class="btn btn-secondary" style="padding: 0.5rem 1rem;"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="project-info">
+            <h4>Plugg - GenAI Matchmaking App</h4>
+            <p>Modern matchmaking platform with AI-powered recommendations and real-time chat.</p>
+            <div class="project-tech">
+              <span>Python</span><span>Flask</span><span>LangChain</span><span>Pinecone</span><span>MongoDB</span><span>Docker</span><span>GCP</span><span>Redis</span><span>LangGraph</span><span>OpenAI</span><span>LangSmith</span><span>HuggingFace</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card glass-card reveal">
+          <div class="project-image">
+            <img src="images/projects/plumloom/logo.jpeg" alt="Plumloom">
+            <div class="project-overlay">
+              <a href="#" class="btn btn-primary" style="padding: 0.5rem 1rem;"><i
+                  class="fas fa-external-link-alt"></i></a>
+              <a href="#" class="btn btn-secondary" style="padding: 0.5rem 1rem;"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="project-info">
+            <h4>Plumloom - AI Evaluation Platform</h4>
+            <p>Platform to compare and analyze performance of multiple LLMs like GPT-4, Gemini.</p>
+            <div class="project-tech">
+              <span>Python</span><span>FastAPI</span><span>OpenAI</span><span>PostgreSQL</span><span>Stripe Payment Integration</span><span>Redis</span><span>Heroku</span><span>Docker</span><span>GCP</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card glass-card reveal">
+          <div class="project-image">
+            <img src="images/projects/casecreate/logo.png" alt="CaseCreate">
+            <div class="project-overlay">
+              <a href="https://case-create.com/" target="_blank" class="btn btn-primary"
+                style="padding: 0.5rem 1rem;"><i class="fas fa-external-link-alt"></i></a>
+              <a href="#" class="btn btn-secondary" style="padding: 0.5rem 1rem;"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="project-info">
+            <h4>CaseCreate - Legal Automation</h4>
+            <p>Intelligent legal automation platform using GenAI for contract drafting.</p>
+            <div class="project-tech">
+              <span>Django</span><span>OpenAI</span><span>PostgreSQL</span><span>MongoDB</span><span>AWS Lambda</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card glass-card reveal">
+          <div class="project-image">
+            <div class="project-overlay">
+              <a href="#" class="btn btn-primary" style="padding: 0.5rem 1rem;"><i
+                  class="fas fa-external-link-alt"></i></a>
+              <a href="https://github.com/kinganupamdutta27/stock-market-prediction-using-random-forest"
+                class="btn btn-secondary" style="padding: 0.5rem 1rem;"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="project-info">
+            <h4>Stock Market Prediction</h4>
+            <p>ML model to predict S&P 500 trends using Random Forest.</p>
+            <div class="project-tech">
+              <span>Python</span><span>Scikit-learn</span><span>XGBoost</span><span>Pandas</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card glass-card reveal">
+          <div class="project-image">
+            <div class="project-overlay">
+              <a href="https://link.springer.com/chapter/10.1007/978-981-99-1983-3_29" class="btn btn-primary"
+                style="padding: 0.5rem 1rem;"><i class="fas fa-external-link-alt"></i></a>
+              <a href="#" class="btn btn-secondary" style="padding: 0.5rem 1rem;"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="project-info">
+            <h4>Sign Language Recognition</h4>
+            <p>Published research on hand gesture recognition using ML. (Springer Publication)</p>
+            <div class="project-tech">
+              <span>Python</span><span>OpenCV</span><span>TensorFlow</span><span>Mediapipe</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card glass-card reveal">
+          <div class="project-image">
+            <div class="project-overlay">
+              <a href="#" class="btn btn-primary" style="padding: 0.5rem 1rem;"><i
+                  class="fas fa-external-link-alt"></i></a>
+              <a href="https://github.com/kinganupamdutta27/IOT-BASED-WATER-LEVEL-MONITORING-AND-CONTROL-SYSTEM"
+                class="btn btn-secondary" style="padding: 0.5rem 1rem;"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="project-info">
+            <h4>IoT Water Level Monitor</h4>
+            <p>Remote monitoring system with automated pump control using Blynk app.</p>
+            <div class="project-tech">
+              <span>NodeMCU</span><span>Arduino</span><span>IoT</span><span>Blynk</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card glass-card reveal">
+          <div class="project-image">
+            <img src="images/projects/votermatch/logo.png" alt="VoterMatch">
+            <div class="project-overlay">
+              <a href="#" class="btn btn-primary" style="padding: 0.5rem 1rem;"><i
+                  class="fas fa-external-link-alt"></i></a>
+              <a href="#" class="btn btn-secondary" style="padding: 0.5rem 1rem;"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="project-info">
+            <h4>VoterMatch - Political Matchmaking</h4>
+            <p>AI-powered platform matching voters with political candidates based on policy preferences.</p>
+            <div class="project-tech">
+              <span>Python</span><span>Django</span><span>Wagtail CMS</span><span>JavaScript</span><span>Unfold - Admin Theme</span><span>PostgreSQL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Academic Background</span>
+        <h2>My <span class="text-gradient">Education</span></h2>
+      </div>
+      <div class="education-grid">
+        <div class="education-card glass-card reveal">
+          <span class="education-year">2020 - 2023</span>
+          <h4>B.Tech in Computer Science & Engineering</h4>
+          <p class="education-institution">JIS College of Engineering, Kalyani</p>
+          <p class="education-grade"><i class="fas fa-trophy"></i> GPA: 8.85</p>
+        </div>
+        <div class="education-card glass-card reveal">
+          <span class="education-year">2017 - 2020</span>
+          <h4>Diploma in Computer Science & Technology</h4>
+          <p class="education-institution">JIS School of Polytechnic, Kalyani</p>
+          <p class="education-grade"><i class="fas fa-trophy"></i> GPA: 8.7</p>
+        </div>
+        <div class="education-card glass-card reveal">
+          <span class="education-year">2014 - 2015</span>
+          <h4>Madhyamik (Secondary)</h4>
+          <p class="education-institution">Bedibhawan Rabitirtha Vidyalaya</p>
+          <p class="education-grade"><i class="fas fa-trophy"></i> 66.71%</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications Section -->
+  <section id="certifications">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Achievements</span>
+        <h2>My <span class="text-gradient">Certifications</span></h2>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-card glass-card reveal">
+          <div class="cert-icon"><i class="fab fa-aws"></i></div>
+          <h5>AWS Cloud Foundations</h5>
+          <p class="cert-issuer">Amazon Web Services</p>
+        </div>
+        <div class="cert-card glass-card reveal">
+          <div class="cert-icon"><i class="fab fa-aws"></i></div>
+          <h5>AWS ML Foundations</h5>
+          <p class="cert-issuer">Amazon Web Services</p>
+        </div>
+        <div class="cert-card glass-card reveal">
+          <div class="cert-icon"><i class="fab fa-aws"></i></div>
+          <h5>AWS Data Analytics</h5>
+          <p class="cert-issuer">Amazon Web Services</p>
+        </div>
+        <div class="cert-card glass-card reveal">
+          <div class="cert-icon"><i class="fas fa-network-wired"></i></div>
+          <h5>CCNA: Intro to Networks</h5>
+          <p class="cert-issuer">Cisco</p>
+        </div>
+        <div class="cert-card glass-card reveal">
+          <div class="cert-icon"><i class="fab fa-python"></i></div>
+          <h5>Programming with Python</h5>
+          <p class="cert-issuer">Internshala</p>
+        </div>
+        <div class="cert-card glass-card reveal">
+          <div class="cert-icon"><i class="fab fa-java"></i></div>
+          <h5>Java (Basic)</h5>
+          <p class="cert-issuer">HackerRank</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Get in Touch</span>
+        <h2>Let's <span class="text-gradient">Connect</span></h2>
+      </div>
+      <div class="contact-wrapper">
+        <div class="contact-info reveal">
+          <h3>Let's work together!</h3>
+          <p>I'm always interested in hearing about new projects and opportunities. Whether you have a question or just
+            want to say hi, feel free to reach out!</p>
+          <div class="contact-links">
+            <a href="mailto:anupamdutta27121998.in@gmail.com" class="contact-link">
+              <i class="fas fa-envelope"></i>
+              <span>anupamdutta27121998.in@gmail.com</span>
+            </a>
+            <a href="tel:+919163142597" class="contact-link">
+              <i class="fas fa-phone"></i>
+              <span>+91 9163142597</span>
+            </a>
+            <a href="https://www.linkedin.com/in/kinganupamdutta/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin-in"></i>
+              <span>linkedin.com/in/kinganupamdutta</span>
+            </a>
+            <a href="https://github.com/kinganupamdutta27/" target="_blank" class="contact-link">
+              <i class="fab fa-github"></i>
+              <span>github.com/kinganupamdutta27</span>
+            </a>
+          </div>
+        </div>
+        <div class="contact-form glass-card reveal">
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Your Email</label>
+              <input type="email" id="email" name="email" placeholder="john@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Your Message</label>
+              <textarea id="message" name="message" placeholder="Hello Anupam, I'd like to discuss..."
+                required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/kinganupamdutta/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/kinganupamdutta27/" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="mailto:anupamdutta27121998.in@gmail.com"><i class="fas fa-envelope"></i></a>
+      </div>
+      <p class="footer-text">© 2025 Anupam Dutta. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/particles.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
