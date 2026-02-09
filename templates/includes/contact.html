@@ -1,0 +1,62 @@
+{% load static %}
+{# Contact Section - Info links + AJAX form #}
+<section id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">{{ self.contact_section_label }}</span>
+      <h2>{{ self.contact_section_title }} <span class="text-gradient">{{ self.contact_section_title_highlight }}</span></h2>
+    </div>
+    <div class="contact-wrapper">
+      {# Contact Information #}
+      <div class="contact-info reveal">
+        <h3>{{ self.contact_heading }}</h3>
+        <p>{{ self.contact_description }}</p>
+        {% if self.contact_links.all %}
+        <div class="contact-links">
+          {% for link in self.contact_links.all %}
+            <a href="{{ link.url }}"
+               {% if link.contact_type != "email" and link.contact_type != "phone" %}
+                 target="_blank" rel="noopener noreferrer"
+               {% endif %}
+               class="contact-link">
+              <i class="{{ link.icon_class }}"></i>
+              <span>{{ link.display_text }}</span>
+            </a>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      {# Contact Form (AJAX) #}
+      <div class="contact-form glass-card reveal">
+        <form id="contactForm" novalidate>
+          {% csrf_token %}
+          <input type="hidden" name="website" value="">
+          <div id="form-status" class="form-status" style="display: none;"></div>
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="John Doe" required
+                   minlength="2" autocomplete="name">
+            <span class="form-error" id="error-name"></span>
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required
+                   autocomplete="email">
+            <span class="form-error" id="error-email"></span>
+          </div>
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message"
+                      placeholder="Hello Anupam, I'd like to discuss..." required
+                      minlength="10"></textarea>
+            <span class="form-error" id="error-message"></span>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;" id="submitBtn">
+            <i class="fas fa-paper-plane"></i> <span id="submitText">Send Message</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

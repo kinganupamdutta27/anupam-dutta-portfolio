@@ -1,0 +1,19 @@
+{% load wagtailcore_tags %}
+{# Navigation Bar - Fixed position, scroll-aware #}
+<nav class="navbar">
+  <div class="container">
+    <a href="#" class="nav-logo">{{ self.hero_name|default:"Anupam" }}<span>.</span></a>
+    <ul class="nav-links">
+      {% for anchor, label in nav_sections %}
+        <li>
+          <a href="#{{ anchor }}"{% if forloop.first %} class="active"{% endif %}>
+            {{ label }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    <div class="nav-toggle">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>

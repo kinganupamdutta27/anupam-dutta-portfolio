@@ -1,0 +1,51 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{# Hero Section - Full viewport with particles, typing effect, CTAs #}
+<section id="home" class="hero">
+  <div class="hero-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+  <div class="container">
+    <div class="hero-content">
+      {# Availability Tag #}
+      <div class="hero-tag">
+        <span class="dot"></span>
+        <span>{{ self.hero_tag_text }}</span>
+      </div>
+
+      {# Main Heading #}
+      <h1>{{ self.hero_greeting }} <span class="text-gradient">{{ self.hero_name }}</span></h1>
+
+      {# Typing Animation Subtitle #}
+      <p class="hero-subtitle">
+        <span class="typing-text" id="typing"></span>
+      </p>
+
+      {# CTA Buttons #}
+      <div class="hero-buttons">
+        <a href="{{ self.hero_cta_primary_url }}" class="btn btn-primary">
+          {% if self.hero_cta_primary_icon %}<i class="{{ self.hero_cta_primary_icon }}"></i>{% endif %}
+          {{ self.hero_cta_primary_text }}
+        </a>
+        <a href="{{ self.hero_cta_secondary_url }}" class="btn btn-secondary">
+          {% if self.hero_cta_secondary_icon %}<i class="{{ self.hero_cta_secondary_icon }}"></i>{% endif %}
+          {{ self.hero_cta_secondary_text }}
+        </a>
+      </div>
+
+      {# Social Links #}
+      {% if self.hero_social_links.all %}
+      <div class="hero-social">
+        {% for link in self.hero_social_links.all %}
+          <a href="{{ link.url }}"
+             {% if link.url|slice:":6" != "mailto" %}target="_blank" rel="noopener noreferrer"{% endif %}
+             title="{{ link.title|default:link.get_platform_display }}">
+            <i class="{{ link.icon_class }}"></i>
+          </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

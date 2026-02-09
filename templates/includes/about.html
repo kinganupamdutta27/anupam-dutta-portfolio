@@ -1,0 +1,38 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{# About Section - Profile image, description, and statistics #}
+<section id="about">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">{{ self.about_section_label }}</span>
+      <h2>{{ self.about_section_title }} <span class="text-gradient">{{ self.about_section_title_highlight }}</span></h2>
+    </div>
+    <div class="about-grid">
+      {# Profile Image #}
+      <div class="about-image reveal">
+        {% if self.about_image %}
+          {% image self.about_image fill-400x400 as about_img %}
+          <img src="{{ about_img.url }}" alt="{{ self.hero_name }}" loading="lazy">
+        {% endif %}
+      </div>
+
+      {# About Content #}
+      <div class="about-content reveal">
+        {% if self.about_description %}
+          {{ self.about_description|richtext }}
+        {% endif %}
+
+        {# Statistics #}
+        {% if self.about_stats.all %}
+        <div class="about-stats">
+          {% for stat in self.about_stats.all %}
+            <div class="stat-item">
+              <div class="stat-number">{{ stat.number }}</div>
+              <div class="stat-label">{{ stat.label }}</div>
+            </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

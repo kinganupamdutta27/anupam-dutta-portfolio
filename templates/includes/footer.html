@@ -1,0 +1,23 @@
+{% load wagtailcore_tags portfolio_tags %}
+{# Footer - Social links and copyright #}
+{% get_site_config as site_config %}
+<footer class="footer">
+  <div class="container">
+    {# Footer Social Links (reuse hero social links) #}
+    {% if self.hero_social_links.all %}
+    <div class="footer-social">
+      {% for link in self.hero_social_links.all %}
+        <a href="{{ link.url }}"
+           {% if link.url|slice:":6" != "mailto" %}target="_blank" rel="noopener noreferrer"{% endif %}
+           title="{{ link.title|default:link.get_platform_display }}">
+          <i class="{{ link.icon_class }}"></i>
+        </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <p class="footer-text">
+      &copy; {{ CURRENT_YEAR }}
+      {% if site_config %}{{ site_config.footer_text }}{% else %}Anupam Dutta. All Rights Reserved.{% endif %}
+    </p>
+  </div>
+</footer>

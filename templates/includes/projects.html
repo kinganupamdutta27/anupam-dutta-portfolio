@@ -1,0 +1,49 @@
+{% load wagtailimages_tags %}
+{# Projects Section - Grid of project cards with overlays #}
+<section id="projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">{{ self.projects_section_label }}</span>
+      <h2>{{ self.projects_section_title }} <span class="text-gradient">{{ self.projects_section_title_highlight }}</span></h2>
+    </div>
+    {% if projects %}
+    <div class="projects-grid">
+      {% for project in projects %}
+        <div class="project-card glass-card reveal">
+          <div class="project-image">
+            {% if project.image %}
+              {% image project.image fill-600x400 as proj_img %}
+              <img src="{{ proj_img.url }}" alt="{{ project.title }}" loading="lazy">
+            {% endif %}
+            <div class="project-overlay">
+              {% if project.live_url %}
+                <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer"
+                   class="btn btn-primary" style="padding: 0.5rem 1rem;">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              {% endif %}
+              {% if project.github_url %}
+                <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer"
+                   class="btn btn-secondary" style="padding: 0.5rem 1rem;">
+                  <i class="fab fa-github"></i>
+                </a>
+              {% endif %}
+            </div>
+          </div>
+          <div class="project-info">
+            <h4>{{ project.title }}</h4>
+            <p>{{ project.description }}</p>
+            {% if project.technologies.all %}
+            <div class="project-tech">
+              {% for tech in project.technologies.all %}
+                <span>{{ tech.name }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>

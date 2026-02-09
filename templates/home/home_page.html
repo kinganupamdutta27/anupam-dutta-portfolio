@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags portfolio_tags %}
+
+{% block content %}
+  {# Navigation #}
+  {% include "includes/navbar.html" %}
+
+  {# Hero Section #}
+  {% include "includes/hero.html" %}
+
+  {# About Section #}
+  {% if self.show_about %}
+    {% include "includes/about.html" %}
+  {% endif %}
+
+  {# Skills Section #}
+  {% if self.show_skills %}
+    {% include "includes/skills.html" %}
+  {% endif %}
+
+  {# Experience Section #}
+  {% if self.show_experience %}
+    {% include "includes/experience.html" %}
+  {% endif %}
+
+  {# Projects Section #}
+  {% if self.show_projects %}
+    {% include "includes/projects.html" %}
+  {% endif %}
+
+  {# Education Section #}
+  {% if self.show_education %}
+    {% include "includes/education.html" %}
+  {% endif %}
+
+  {# Certifications Section #}
+  {% if self.show_certifications %}
+    {% include "includes/certifications.html" %}
+  {% endif %}
+
+  {# Contact Section #}
+  {% if self.show_contact %}
+    {% include "includes/contact.html" %}
+  {% endif %}
+
+  {# Footer #}
+  {% include "includes/footer.html" %}
+{% endblock %}
+
+{% block extra_js %}
+  {# Pass dynamic data to JavaScript #}
+  <script>
+    window.PORTFOLIO_CONFIG = {
+      typingTexts: {{ typing_texts_list|to_json }},
+      contactFormUrl: "{% url 'contact:submit' %}",
+      csrfToken: "{{ csrf_token }}",
+    };
+  </script>
+{% endblock %}

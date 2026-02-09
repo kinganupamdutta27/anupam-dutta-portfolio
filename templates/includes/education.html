@@ -1,0 +1,26 @@
+{# Education Section - Grid of education cards #}
+<section id="education">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">{{ self.education_section_label }}</span>
+      <h2>{{ self.education_section_title }} <span class="text-gradient">{{ self.education_section_title_highlight }}</span></h2>
+    </div>
+    {% if educations %}
+    <div class="education-grid">
+      {% for edu in educations %}
+        <div class="education-card glass-card reveal">
+          <span class="education-year">{{ edu.year_range }}</span>
+          <h4>{{ edu.degree }}</h4>
+          <p class="education-institution">{{ edu.institution }}</p>
+          {% if edu.grade %}
+            <p class="education-grade"><i class="fas fa-trophy"></i> {{ edu.grade }}</p>
+          {% endif %}
+          {% if edu.description %}
+            <p>{{ edu.description }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>

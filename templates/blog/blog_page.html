@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}{{ self.title }}{% endblock %}
+
+{% block content %}
+{# Navigation #}
+<nav class="navbar scrolled">
+  <div class="container">
+    <a href="/" class="nav-logo">Anupam<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="{% pageurl self.get_parent %}">Blog</a></li>
+    </ul>
+  </div>
+</nav>
+
+<article style="padding-top: 120px; padding-bottom: 4rem;">
+  <div class="container" style="max-width: 800px;">
+    {# Article Header #}
+    <header style="margin-bottom: 3rem;">
+      <p class="timeline-date" style="margin-bottom: 1rem;">{{ self.date|date:"F j, Y" }}</p>
+      <h1>{{ self.title }}</h1>
+      {% if self.excerpt %}
+        <p style="font-size: 1.1rem; margin-top: 1rem;">{{ self.excerpt }}</p>
+      {% endif %}
+      {% if tag_list %}
+      <div class="project-tech" style="margin-top: 1rem;">
+        {% for tag in tag_list %}
+          <span>{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </header>
+
+    {# Featured Image #}
+    {% if self.featured_image %}
+      <div style="margin-bottom: 3rem; border-radius: var(--radius-lg); overflow: hidden;">
+        {% image self.featured_image width-800 as featured_img %}
+        <img src="{{ featured_img.url }}" alt="{{ self.title }}"
+             style="width: 100%; display: block;">
+      </div>
+    {% endif %}
+
+    {# Article Body (StreamField) #}
+    <div class="blog-content">
+      {% for block in self.body %}
+        {% if block.block_type == "heading" %}
+          <h2 style="margin: 2rem 0 1rem;">{{ block.value }}</h2>
+        {% elif block.block_type == "paragraph" %}
+          {{ block.value|richtext }}
+        {% elif block.block_type == "image" %}
+          <figure style="margin: 2rem 0;">
+            {% image block.value width-800 as blog_img %}
+            <img src="{{ blog_img.url }}" alt="" style="width: 100%; border-radius: var(--radius-md);">
+          </figure>
+        {% elif block.block_type == "code" %}
+          <pre style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: var(--radius-md); overflow-x: auto; margin: 1.5rem 0;">
+            <code>{{ block.value }}</code>
+          </pre>
+        {% elif block.block_type == "quote" %}
+          <blockquote style="border-left: 4px solid var(--accent-primary); padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: var(--text-secondary);">
+            {{ block.value }}
+          </blockquote>
+        {% elif block.block_type == "raw_html" %}
+          {{ block.value }}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {# Back to Blog Link #}
+    <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--glass-border);">
+      <a href="{% pageurl self.get_parent %}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Blog
+      </a>
+    </div>
+  </div>
+</article>
+{% endblock %}

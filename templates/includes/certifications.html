@@ -1,0 +1,24 @@
+{# Certifications Section - Grid of certification cards #}
+<section id="certifications">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">{{ self.certifications_section_label }}</span>
+      <h2>{{ self.certifications_section_title }} <span class="text-gradient">{{ self.certifications_section_title_highlight }}</span></h2>
+    </div>
+    {% if certifications %}
+    <div class="cert-grid">
+      {% for cert in certifications %}
+        <div class="cert-card glass-card reveal">
+          <div class="cert-icon"><i class="{{ cert.icon_class }}"></i></div>
+          <h5>{{ cert.name }}</h5>
+          <p class="cert-issuer">{{ cert.issuer }}</p>
+          {% if cert.credential_url %}
+            <a href="{{ cert.credential_url }}" target="_blank" rel="noopener noreferrer"
+               class="cert-verify-link">Verify <i class="fas fa-external-link-alt"></i></a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>

@@ -1,0 +1,73 @@
+# ==============================================================================
+# Anupam Dutta Portfolio - Git Ignore
+# ==============================================================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+eggs/
+*.egg
+
+# Virtual Environment
+venv/
+env/
+.venv/
+.env
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+*.log
+logs/
+staticfiles/
+media/
+*.pot
+*.mo
+
+# Wagtail
+*.swp
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.cursor/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Docker
+docker-compose.override.yml
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+
+# pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# ruff
+.ruff_cache/
+
+# Node (if any frontend tools)
+node_modules/
+package-lock.json
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~

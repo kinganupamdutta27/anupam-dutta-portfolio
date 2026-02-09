@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+{# Navigation - Simple for blog pages #}
+<nav class="navbar scrolled">
+  <div class="container">
+    <a href="/" class="nav-logo">Anupam<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="#" class="active">Blog</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section style="padding-top: 120px;">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Blog</span>
+      <h2>Latest <span class="text-gradient">Articles</span></h2>
+    </div>
+
+    {% if self.intro %}
+      <div style="text-align: center; max-width: 700px; margin: 0 auto 3rem;">
+        {{ self.intro|richtext }}
+      </div>
+    {% endif %}
+
+    {% if posts %}
+    <div class="projects-grid">
+      {% for post in posts %}
+        <a href="{% pageurl post %}" class="project-card glass-card" style="text-decoration: none;">
+          <div class="project-image">
+            {% if post.featured_image %}
+              {% image post.featured_image fill-600x300 as post_img %}
+              <img src="{{ post_img.url }}" alt="{{ post.title }}" loading="lazy">
+            {% endif %}
+          </div>
+          <div class="project-info">
+            <p class="timeline-date">{{ post.date|date:"F j, Y" }}</p>
+            <h4>{{ post.title }}</h4>
+            {% if post.excerpt %}
+              <p>{{ post.excerpt }}</p>
+            {% endif %}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+
+    {# Pagination #}
+    {% if posts.has_other_pages %}
+    <div style="text-align: center; margin-top: 3rem;">
+      {% if posts.has_previous %}
+        <a href="?page={{ posts.previous_page_number }}" class="btn btn-secondary">Previous</a>
+      {% endif %}
+      <span style="margin: 0 1rem; color: var(--text-muted);">
+        Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+      </span>
+      {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}" class="btn btn-primary">Next</a>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div style="text-align: center; padding: 4rem 0;">
+      <p style="font-size: 1.2rem;">No blog posts yet. Check back soon!</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

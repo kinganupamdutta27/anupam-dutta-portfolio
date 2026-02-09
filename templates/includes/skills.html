@@ -1,0 +1,23 @@
+{# Skills Section - Grid of skill categories with tags #}
+<section id="skills">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">{{ self.skills_section_label }}</span>
+      <h2>{{ self.skills_section_title }} <span class="text-gradient">{{ self.skills_section_title_highlight }}</span></h2>
+    </div>
+    {% if skill_categories %}
+    <div class="skills-grid">
+      {% for category in skill_categories %}
+        <div class="skill-category glass-card reveal">
+          <h4><i class="{{ category.icon_class }}"></i> {{ category.name }}</h4>
+          <div class="skill-list">
+            {% for skill in category.skills.all %}
+              <span class="skill-tag">{{ skill.name }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>

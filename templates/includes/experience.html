@@ -1,0 +1,30 @@
+{# Experience Section - Timeline layout with achievements #}
+<section id="experience">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">{{ self.experience_section_label }}</span>
+      <h2>{{ self.experience_section_title }} <span class="text-gradient">{{ self.experience_section_title_highlight }}</span></h2>
+    </div>
+    {% if experiences %}
+    <div class="timeline">
+      {% for exp in experiences %}
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass-card">
+            <span class="timeline-date">{{ exp.date_range }}</span>
+            <h4>{{ exp.job_title }}</h4>
+            <p class="timeline-company">{{ exp.company_display }}</p>
+            {% if exp.highlights.all %}
+            <ul>
+              {% for highlight in exp.highlights.all %}
+                <li>{{ highlight.text }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>

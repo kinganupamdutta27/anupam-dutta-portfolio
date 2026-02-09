@@ -1,0 +1,77 @@
+{% load static wagtailcore_tags wagtailimages_tags portfolio_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {# SEO Meta Tags - Dynamic from CMS #}
+  {% get_site_config as site_config %}
+  <meta name="description"
+    content="{% if self.seo_title %}{{ self.seo_title }}{% elif site_config %}{{ site_config.meta_description }}{% else %}Anupam Dutta - Python Backend Engineer & Generative AI Specialist{% endif %}">
+  <meta name="keywords"
+    content="{% if site_config %}{{ site_config.meta_keywords }}{% else %}Python Developer, Backend Engineer, GenAI{% endif %}">
+  <meta name="author" content="{% if site_config %}{{ site_config.site_name }}{% else %}Anupam Dutta{% endif %}">
+
+  {# Open Graph Tags #}
+  <meta property="og:title"
+    content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}">
+  <meta property="og:description"
+    content="{% if site_config %}{{ site_config.meta_description }}{% endif %}">
+  <meta property="og:type" content="website">
+
+  <title>
+    {% block title %}
+      {% if self.seo_title %}{{ self.seo_title }}{% elif self.title %}{{ self.title }}{% endif %}
+      {% if site_config %} | {{ site_config.site_name }}{% endif %}
+    {% endblock %}
+  </title>
+
+  {# Preconnect for performance #}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  {# Google Fonts #}
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  {# Font Awesome #}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  {# Application CSS #}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/components.css' %}">
+  <link rel="stylesheet" href="{% static 'css/sections.css' %}">
+
+  {% block extra_css %}{% endblock %}
+
+  {# Google Analytics #}
+  {% if site_config and site_config.google_analytics_id and IS_PRODUCTION %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site_config.google_analytics_id }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ site_config.google_analytics_id }}');
+  </script>
+  {% endif %}
+</head>
+
+<body>
+  {% block body %}
+    {# Particles Background #}
+    <canvas id="particles-canvas"></canvas>
+
+    {% block content %}{% endblock %}
+  {% endblock %}
+
+  {# Application JavaScript #}
+  <script src="{% static 'js/particles.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
+  {% block extra_js %}{% endblock %}
+</body>
+
+</html>

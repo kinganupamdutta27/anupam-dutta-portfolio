@@ -1,0 +1,36 @@
+# Django Framework
+Django>=5.1,<5.2
+
+# Wagtail CMS
+wagtail>=6.3,<7.0
+
+# Unfold - Modern Django Admin Theme
+django-unfold>=0.40
+
+# Wagtail Dependencies (auto-installed but pinned for clarity)
+modelcluster>=6.0
+django-taggit>=5.0
+
+# Image Processing
+Pillow>=10.0
+
+# Environment Configuration
+python-decouple>=3.8
+
+# Database
+psycopg2-binary>=2.9
+
+# Production Server
+gunicorn>=22.0
+
+# Static Files (Production)
+whitenoise>=6.5
+
+# CORS Headers
+django-cors-headers>=4.3
+
+# Testing
+pytest>=8.0
+pytest-django>=4.8
+factory-boy>=3.3
+coverage>=7.4
