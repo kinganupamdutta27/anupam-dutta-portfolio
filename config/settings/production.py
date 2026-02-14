@@ -2,17 +2,18 @@
 Production settings for Anupam Dutta Portfolio.
 """
 
+import os
+
 import dj_database_url
 
 from .base import *  # noqa: F401, F403
-from decouple import config, Csv
 
 # =============================================================================
 # DEBUG
 # =============================================================================
 
 DEBUG = False
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", ".onrender.com").split(",")
 
 # =============================================================================
 # DATABASE (PostgreSQL via DATABASE_URL)
@@ -20,7 +21,7 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
 
 DATABASES = {
     "default": dj_database_url.config(
-        default=config("DATABASE_URL", default="sqlite:///db.sqlite3"),
+        default=os.environ.get("DATABASE_URL", "sqlite:///db.sqlite3"),
         conn_max_age=600,
         conn_health_checks=True,
     )
@@ -30,8 +31,8 @@ DATABASES = {
 # SECURITY
 # =============================================================================
 
-SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default=True, cast=bool)
-SECURE_HSTS_SECONDS = config("SECURE_HSTS_SECONDS", default=31536000, cast=int)
+SECURE_SSL_REDIRECT = os.environ.get("SECURE_SSL_REDIRECT", "True").lower() == "true"
+SECURE_HSTS_SECONDS = int(os.environ.get("SECURE_HSTS_SECONDS", "31536000"))
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
@@ -52,36 +53,60 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # =============================================================================
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "587"))
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
 
 # =============================================================================
 # CORS
 # =============================================================================
 
 CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = config(
-    "CORS_ALLOWED_ORIGINS",
-    default="",
-    cast=Csv(),
-)
+cors_origins = os.environ.get("CORS_ALLOWED_ORIGINS", "")
+CORS_ALLOWED_ORIGINS = [origin.strip() for origin in cors_origins.split(",") if origin.strip()]
 
 # =============================================================================
 # WAGTAIL
 # =============================================================================
 
-WAGTAILADMIN_BASE_URL = config("WAGTAILADMIN_BASE_URL")
+WAGTAILADMIN_BASE_URL = os.environ.get("WAGTAILADMIN_BASE_URL", "https://anupam-dutta-portfolio.onrender.com")
 
 # =============================================================================
-# LOGGING (file-based in production)
+# LOGGING (console only in production - Render captures stdout)
 # =============================================================================
 
-LOGGING["handlers"]["file"] = {  # noqa: F405
-    "class": "logging.handlers.RotatingFileHandler",
-    "filename": BASE_DIR / "logs" / "django.log",  # noqa: F405
-    "maxBytes": 1024 * 1024 * 5,  # 5MB
-    "backupCount": 5,
-    "formatter": "verbose",
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "apps": {
+            "handlers": ["console"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+    },
 }
-LOGGING["root"]["handlers"] = ["console", "file"]  # noqa: F405
-LOGGING["loggers"]["django"]["handlers"] = ["console", "file"]  # noqa: F405
-LOGGING["loggers"]["apps"]["handlers"] = ["console", "file"]  # noqa: F405
-LOGGING["loggers"]["apps"]["level"] = "WARNING"  # noqa: F405
