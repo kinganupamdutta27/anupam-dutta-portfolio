@@ -3,12 +3,16 @@ URL configuration for the accounts app.
 """
 
 from django.urls import path
+from django.views.generic import RedirectView
 
 from . import views
 
 app_name = "accounts"
 
 urlpatterns = [
+    # Root redirect to login
+    path("", RedirectView.as_view(pattern_name="accounts:login"), name="index"),
+    
     # Authentication
     path("register/", views.RegisterView.as_view(), name="register"),
     path("login/", views.LoginView.as_view(), name="login"),
