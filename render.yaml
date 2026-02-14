@@ -1,0 +1,32 @@
+databases:
+  - name: portfolio-db
+    databaseName: portfolio_db
+    user: portfolio_user
+    plan: free
+
+services:
+  - type: web
+    name: anupam-portfolio
+    runtime: python
+    plan: free
+    buildCommand: ./build.sh
+    startCommand: gunicorn config.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: portfolio-db
+          property: connectionString
+      - key: PYTHON_VERSION
+        value: "3.12.0"
+      - key: WAGTAILADMIN_BASE_URL
+        value: "https://anupam-portfolio.onrender.com"
+      - key: CORS_ALLOWED_ORIGINS
+        value: "https://anupam-portfolio.onrender.com"

@@ -2,6 +2,8 @@
 Production settings for Anupam Dutta Portfolio.
 """
 
+import dj_database_url
+
 from .base import *  # noqa: F401, F403
 from decouple import config, Csv
 
@@ -13,22 +15,15 @@ DEBUG = False
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
 
 # =============================================================================
-# DATABASE (PostgreSQL for production)
+# DATABASE (PostgreSQL via DATABASE_URL)
 # =============================================================================
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("DB_NAME", default="portfolio_db"),
-        "USER": config("DB_USER", default="portfolio_user"),
-        "PASSWORD": config("DB_PASSWORD", default=""),
-        "HOST": config("DB_HOST", default="localhost"),
-        "PORT": config("DB_PORT", default="5432"),
-        "CONN_MAX_AGE": 600,
-        "OPTIONS": {
-            "connect_timeout": 10,
-        },
-    }
+    "default": dj_database_url.config(
+        default=config("DATABASE_URL", default="sqlite:///db.sqlite3"),
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
 
 # =============================================================================
