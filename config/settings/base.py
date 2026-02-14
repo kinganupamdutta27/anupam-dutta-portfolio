@@ -80,6 +80,8 @@ LOCAL_APPS = [
     "apps.portfolio",
     "apps.contact",
     "apps.blog",
+    "apps.accounts",
+    "apps.jobs",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + WAGTAIL_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -99,6 +101,10 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
     "apps.core.middleware.ExceptionLoggingMiddleware",
+    # Security middleware for authentication
+    "apps.accounts.middleware.RateLimitMiddleware",
+    "apps.accounts.middleware.SessionSecurityMiddleware",
+    "apps.accounts.middleware.SecurityHeadersMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -141,12 +147,33 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # AUTHENTICATION & PASSWORD VALIDATION
 # ==============================================================================
 
+# Custom User Model
+AUTH_USER_MODEL = "accounts.User"
+
+# Authentication Backends
+AUTHENTICATION_BACKENDS = [
+    "apps.accounts.backends.EmailAuthBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+# Login/Logout URLs
+LOGIN_URL = "accounts:login"
+LOGIN_REDIRECT_URL = "accounts:dashboard"
+LOGOUT_REDIRECT_URL = "accounts:login"
+
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", "OPTIONS": {"min_length": 8}},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
+
+# Session Security
+SESSION_COOKIE_SECURE = False  # Set to True in production
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30  # 30 days
 
 # ==============================================================================
 # INTERNATIONALIZATION

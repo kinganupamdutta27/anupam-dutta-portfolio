@@ -27,6 +27,10 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     # Contact Form API
     path("contact/", include("apps.contact.urls")),
+    # User Authentication
+    path("accounts/", include("apps.accounts.urls")),
+    # Job Postings
+    path("jobs/", include("apps.jobs.urls")),
 ]
 
 # Serve media files in development

@@ -1,0 +1,137 @@
+{% extends "accounts/base_auth.html" %}
+
+{% block title %}Create Account{% endblock %}
+
+{% block content %}
+<a href="/" class="back-link">
+    <i class="fas fa-arrow-left"></i> Back to Portfolio
+</a>
+
+<div class="auth-card">
+    <div class="auth-header">
+        <div class="auth-logo">AD</div>
+        <h1 class="auth-title">Create Account</h1>
+        <p class="auth-subtitle">Join to post job opportunities</p>
+    </div>
+
+    {% if form.non_field_errors %}
+        <div class="alert alert-error">
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="website" value="">
+        
+        <div class="form-group">
+            <label for="full_name" class="form-label">Full Name *</label>
+            <input type="text" 
+                   id="full_name" 
+                   name="full_name" 
+                   class="form-control {% if form.full_name.errors %}error{% endif %}"
+                   placeholder="John Doe"
+                   value="{{ form.full_name.value|default:'' }}"
+                   autocomplete="name"
+                   required>
+            {% if form.full_name.errors %}
+                <span class="form-error">{{ form.full_name.errors.0 }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="form-label">Email Address *</label>
+            <input type="email" 
+                   id="email" 
+                   name="email" 
+                   class="form-control {% if form.email.errors %}error{% endif %}"
+                   placeholder="your@email.com"
+                   value="{{ form.email.value|default:'' }}"
+                   autocomplete="email"
+                   required>
+            {% if form.email.errors %}
+                <span class="form-error">{{ form.email.errors.0 }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="company" class="form-label">Company (Optional)</label>
+            <input type="text" 
+                   id="company" 
+                   name="company" 
+                   class="form-control"
+                   placeholder="Your company name"
+                   value="{{ form.company.value|default:'' }}"
+                   autocomplete="organization">
+        </div>
+
+        <div class="form-group">
+            <label for="password1" class="form-label">Password *</label>
+            <input type="password" 
+                   id="password1" 
+                   name="password1" 
+                   class="form-control {% if form.password1.errors %}error{% endif %}"
+                   placeholder="Create a strong password"
+                   autocomplete="new-password"
+                   required>
+            {% if form.password1.errors %}
+                <span class="form-error">{{ form.password1.errors.0 }}</span>
+            {% endif %}
+        </div>
+
+        <div class="password-requirements">
+            <h4><i class="fas fa-shield-alt"></i> Password Requirements</h4>
+            <ul>
+                <li><i class="fas fa-check"></i> At least 8 characters long</li>
+                <li><i class="fas fa-check"></i> One uppercase letter (A-Z)</li>
+                <li><i class="fas fa-check"></i> One lowercase letter (a-z)</li>
+                <li><i class="fas fa-check"></i> One number (0-9)</li>
+                <li><i class="fas fa-check"></i> One special character (!@#$%^&*)</li>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <label for="password2" class="form-label">Confirm Password *</label>
+            <input type="password" 
+                   id="password2" 
+                   name="password2" 
+                   class="form-control {% if form.password2.errors %}error{% endif %}"
+                   placeholder="Confirm your password"
+                   autocomplete="new-password"
+                   required>
+            {% if form.password2.errors %}
+                <span class="form-error">{{ form.password2.errors.0 }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-check">
+            <input type="checkbox" 
+                   id="accept_terms" 
+                   name="accept_terms" 
+                   class="form-check-input"
+                   required>
+            <label for="accept_terms" class="form-check-label">
+                I agree to the <a href="#" style="color: var(--primary);">Terms of Service</a> and 
+                <a href="#" style="color: var(--primary);">Privacy Policy</a>
+            </label>
+        </div>
+        {% if form.accept_terms.errors %}
+            <span class="form-error" style="margin-top: -1rem; margin-bottom: 1rem; display: block;">
+                {{ form.accept_terms.errors.0 }}
+            </span>
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-user-plus"></i> Create Account
+        </button>
+    </form>
+
+    <div class="auth-links">
+        <p>
+            Already have an account? <a href="{% url 'accounts:login' %}">Sign in</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

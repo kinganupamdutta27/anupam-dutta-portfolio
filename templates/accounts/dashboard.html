@@ -1,0 +1,86 @@
+{% extends "accounts/base_dashboard.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block dashboard_content %}
+<div class="dashboard-header">
+    <div>
+        <h1>Welcome, {{ user.get_short_name }}!</h1>
+        <p class="text-muted">Manage your job postings and profile</p>
+    </div>
+    <a href="{% url 'jobs:create_job' %}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Post a Job
+    </a>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(102, 126, 234, 0.1); color: var(--primary);">
+            <i class="fas fa-briefcase"></i>
+        </div>
+        <div class="stat-info">
+            <span class="stat-value">{{ total_posts }}</span>
+            <span class="stat-label">Total Job Posts</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-info">
+            <span class="stat-value">{{ job_posts|length }}</span>
+            <span class="stat-label">Pending Review</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="stat-info">
+            <span class="stat-value">{{ user.is_verified|yesno:"Yes,No" }}</span>
+            <span class="stat-label">Account Verified</span>
+        </div>
+    </div>
+</div>
+
+<div class="section-header">
+    <h2>Recent Job Posts</h2>
+    <a href="{% url 'jobs:my_jobs' %}" class="btn btn-outline btn-sm">View All</a>
+</div>
+
+{% if job_posts %}
+    <div class="job-list">
+        {% for job in job_posts %}
+            <div class="job-card">
+                <div class="job-info">
+                    <h3>{{ job.title }}</h3>
+                    <p class="job-company">{{ job.company_name }} • {{ job.location }}</p>
+                    <div class="job-meta">
+                        <span class="badge badge-{{ job.status }}">{{ job.get_status_display }}</span>
+                        <span class="job-date">Posted {{ job.created_at|timesince }} ago</span>
+                    </div>
+                </div>
+                <div class="job-actions">
+                    <a href="{% url 'jobs:job_detail' job.slug %}" class="btn btn-outline btn-sm">
+                        <i class="fas fa-eye"></i> View
+                    </a>
+                    {% if job.status == 'pending' or job.status == 'draft' %}
+                        <a href="{% url 'jobs:edit_job' job.slug %}" class="btn btn-outline btn-sm">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <i class="fas fa-briefcase"></i>
+        <h3>No Job Posts Yet</h3>
+        <p>Start by creating your first job posting</p>
+        <a href="{% url 'jobs:create_job' %}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Post a Job
+        </a>
+    </div>
+{% endif %}
+{% endblock %}

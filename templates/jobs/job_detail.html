@@ -1,0 +1,139 @@
+{% extends "accounts/base_dashboard.html" %}
+
+{% block title %}{{ job.title }}{% endblock %}
+
+{% block dashboard_content %}
+<div class="dashboard-header">
+    <div>
+        <a href="{% url 'jobs:my_jobs' %}" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <i class="fas fa-arrow-left"></i> Back to My Jobs
+        </a>
+        <h1>{{ job.title }}</h1>
+        <p class="text-muted">{{ job.company_name }} • {{ job.location }}</p>
+    </div>
+    <div style="display: flex; gap: 0.5rem;">
+        {% if job.status == 'pending' or job.status == 'draft' %}
+            <a href="{% url 'jobs:edit_job' job.slug %}" class="btn btn-outline">
+                <i class="fas fa-edit"></i> Edit
+            </a>
+        {% endif %}
+        <span class="badge badge-{{ job.status }}" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+            {{ job.get_status_display }}
+        </span>
+    </div>
+</div>
+
+{% if job.status == 'rejected' and job.rejection_reason %}
+    <div class="alert alert-error" style="margin-bottom: 1.5rem;">
+        <strong><i class="fas fa-exclamation-circle"></i> Rejection Reason:</strong> {{ job.rejection_reason }}
+    </div>
+{% endif %}
+
+<div class="form-card">
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+        <div>
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-secondary);">
+                <i class="fas fa-file-alt" style="margin-right: 0.5rem;"></i> Job Description
+            </h3>
+            <div style="white-space: pre-wrap; line-height: 1.7; color: var(--text-primary);">{{ job.description }}</div>
+
+            {% if job.requirements %}
+                <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-secondary);">
+                    <i class="fas fa-clipboard-check" style="margin-right: 0.5rem;"></i> Requirements
+                </h3>
+                <div style="white-space: pre-wrap; line-height: 1.7; color: var(--text-primary);">{{ job.requirements }}</div>
+            {% endif %}
+
+            {% if job.responsibilities %}
+                <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-secondary);">
+                    <i class="fas fa-tasks" style="margin-right: 0.5rem;"></i> Key Responsibilities
+                </h3>
+                <div style="white-space: pre-wrap; line-height: 1.7; color: var(--text-primary);">{{ job.responsibilities }}</div>
+            {% endif %}
+
+            {% if job.benefits %}
+                <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-secondary);">
+                    <i class="fas fa-gift" style="margin-right: 0.5rem;"></i> Benefits & Perks
+                </h3>
+                <div style="white-space: pre-wrap; line-height: 1.7; color: var(--text-primary);">{{ job.benefits }}</div>
+            {% endif %}
+        </div>
+
+        <div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem;">
+                <h4 style="font-size: 1rem; margin-bottom: 1.25rem;">Job Details</h4>
+                
+                <div style="margin-bottom: 1rem;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Job Type</span>
+                    <span style="font-weight: 500;">{{ job.get_job_type_display }}</span>
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Experience Level</span>
+                    <span style="font-weight: 500;">{{ job.get_experience_level_display }}</span>
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Location</span>
+                    <span style="font-weight: 500;">{{ job.location }}{% if job.is_remote %} (Remote){% endif %}</span>
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem;">Salary</span>
+                    <span style="font-weight: 500;">{{ job.salary_range }}</span>
+                </div>
+
+                {% if job.skills_list %}
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.5rem;">Skills Required</span>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                            {% for skill in job.skills_list %}
+                                <span style="background: rgba(102, 126, 234, 0.15); color: var(--primary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;">{{ skill }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1.25rem 0;">
+
+                <h4 style="font-size: 1rem; margin-bottom: 1rem;">Contact</h4>
+                
+                <div style="margin-bottom: 0.75rem;">
+                    <a href="mailto:{{ job.contact_email }}" style="color: var(--primary); text-decoration: none; font-size: 0.9rem;">
+                        <i class="fas fa-envelope" style="margin-right: 0.5rem;"></i> {{ job.contact_email }}
+                    </a>
+                </div>
+
+                {% if job.contact_phone %}
+                    <div style="margin-bottom: 0.75rem;">
+                        <a href="tel:{{ job.contact_phone }}" style="color: var(--primary); text-decoration: none; font-size: 0.9rem;">
+                            <i class="fas fa-phone" style="margin-right: 0.5rem;"></i> {{ job.contact_phone }}
+                        </a>
+                    </div>
+                {% endif %}
+
+                {% if job.application_url %}
+                    <div style="margin-bottom: 0.75rem;">
+                        <a href="{{ job.application_url }}" target="_blank" style="color: var(--primary); text-decoration: none; font-size: 0.9rem;">
+                            <i class="fas fa-external-link-alt" style="margin-right: 0.5rem;"></i> Application Link
+                        </a>
+                    </div>
+                {% endif %}
+
+                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1.25rem 0;">
+
+                <div style="font-size: 0.8rem; color: var(--text-muted);">
+                    <div style="margin-bottom: 0.5rem;">
+                        <i class="fas fa-calendar" style="margin-right: 0.5rem;"></i> Posted {{ job.created_at|date:"F j, Y" }}
+                    </div>
+                    {% if job.reviewed_at %}
+                        <div>
+                            <i class="fas fa-check" style="margin-right: 0.5rem;"></i> Reviewed {{ job.reviewed_at|date:"F j, Y" }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
