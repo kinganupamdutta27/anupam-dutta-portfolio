@@ -13,7 +13,21 @@ from .base import *  # noqa: F401, F403
 # =============================================================================
 
 DEBUG = False
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", ".onrender.com").split(",")
+ALLOWED_HOSTS = [h.strip() for h in os.environ.get("ALLOWED_HOSTS", ".onrender.com").split(",") if h.strip()]
+
+# =============================================================================
+# CSRF TRUSTED ORIGINS (Required for HTTPS in production)
+# =============================================================================
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.onrender.com",
+    "https://anupam-dutta-portfolio.onrender.com",
+]
+
+# Add custom origins from environment if provided
+custom_csrf_origins = os.environ.get("CSRF_TRUSTED_ORIGINS", "")
+if custom_csrf_origins:
+    CSRF_TRUSTED_ORIGINS.extend([o.strip() for o in custom_csrf_origins.split(",") if o.strip()])
 
 # =============================================================================
 # DATABASE (PostgreSQL via DATABASE_URL)
