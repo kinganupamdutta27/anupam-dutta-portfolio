@@ -73,8 +73,8 @@ class RegisterView(View):
                 f"New user registered: {user.email} from IP {get_client_ip(request)}"
             )
             
-            # Auto-login after registration
-            login(request, user)
+            # Auto-login after registration (specify backend for multiple backends)
+            login(request, user, backend="apps.accounts.backends.EmailAuthBackend")
             
             messages.success(
                 request,
@@ -128,8 +128,8 @@ class LoginView(View):
             )
             user.record_successful_login(ip_address)
             
-            # Login the user
-            login(request, user)
+            # Login the user (specify backend for multiple backends)
+            login(request, user, backend="apps.accounts.backends.EmailAuthBackend")
             
             # Handle "remember me"
             if not form.cleaned_data.get("remember_me"):
