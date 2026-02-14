@@ -11,3 +11,6 @@ python manage.py collectstatic --no-input
 
 # Run migrations
 python manage.py migrate
+
+# Create superuser and seed data (only if not already done)
+python manage.py setup_production
