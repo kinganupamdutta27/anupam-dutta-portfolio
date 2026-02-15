@@ -24,9 +24,9 @@ class Command(BaseCommand):
 
     def create_superuser(self):
         """Create superuser from environment variables if not exists."""
-        username = os.environ.get("DJANGO_SUPERUSER_USERNAME", "admin")
         email = os.environ.get("DJANGO_SUPERUSER_EMAIL", "admin@example.com")
         password = os.environ.get("DJANGO_SUPERUSER_PASSWORD")
+        full_name = os.environ.get("DJANGO_SUPERUSER_FULLNAME", "Admin User")
 
         if not password:
             self.stdout.write(
@@ -36,19 +36,19 @@ class Command(BaseCommand):
             )
             return
 
-        if User.objects.filter(username=username).exists():
+        if User.objects.filter(email=email).exists():
             self.stdout.write(
-                self.style.SUCCESS(f"Superuser '{username}' already exists.")
+                self.style.SUCCESS(f"Superuser '{email}' already exists.")
             )
             return
 
         User.objects.create_superuser(
-            username=username,
             email=email,
             password=password,
+            full_name=full_name,
         )
         self.stdout.write(
-            self.style.SUCCESS(f"Superuser '{username}' created successfully!")
+            self.style.SUCCESS(f"Superuser '{email}' created successfully!")
         )
 
     def seed_data(self):
