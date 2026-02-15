@@ -83,6 +83,9 @@ if CLOUDINARY_URL:
     # Cloudinary settings (parsed from CLOUDINARY_URL automatically)
     import cloudinary
     cloudinary.config(secure=True)
+    
+    # Wagtail-specific: Use Cloudinary for image renditions
+    WAGTAILIMAGES_RENDITION_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # =============================================================================
 # EMAIL (SMTP for production)
