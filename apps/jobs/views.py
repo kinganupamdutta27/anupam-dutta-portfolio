@@ -7,8 +7,11 @@ import logging
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.cache import never_cache
@@ -18,6 +21,120 @@ from .forms import JobPostForm
 from .models import JobPost
 
 logger = logging.getLogger(__name__)
+
+
+# ==============================================================================
+# PUBLIC JOB LISTINGS (Anyone can view)
+# ==============================================================================
+
+
+class PublicJobListView(View):
+    """
+    Public listing of all approved job posts.
+    Anyone can view this page without logging in.
+    """
+
+    template_name = "jobs/public_job_list.html"
+    paginate_by = 12
+
+    def get(self, request):
+        # Get all approved, non-expired jobs
+        jobs = JobPost.objects.filter(
+            status="approved"
+        ).filter(
+            Q(expires_at__isnull=True) | Q(expires_at__gt=timezone.now())
+        ).order_by("-created_at")
+
+        # Filters
+        job_type = request.GET.get("type", "")
+        experience = request.GET.get("experience", "")
+        location = request.GET.get("location", "")
+        remote_only = request.GET.get("remote", "")
+        search = request.GET.get("q", "")
+
+        if job_type:
+            jobs = jobs.filter(job_type=job_type)
+        if experience:
+            jobs = jobs.filter(experience_level=experience)
+        if location:
+            jobs = jobs.filter(location__icontains=location)
+        if remote_only:
+            jobs = jobs.filter(is_remote=True)
+        if search:
+            jobs = jobs.filter(
+                Q(title__icontains=search) |
+                Q(company_name__icontains=search) |
+                Q(description__icontains=search) |
+                Q(skills_required__icontains=search)
+            )
+
+        # Pagination
+        paginator = Paginator(jobs, self.paginate_by)
+        page = request.GET.get("page", 1)
+
+        try:
+            jobs_page = paginator.page(page)
+        except PageNotAnInteger:
+            jobs_page = paginator.page(1)
+        except EmptyPage:
+            jobs_page = paginator.page(paginator.num_pages)
+
+        # Get unique values for filters
+        all_jobs = JobPost.objects.filter(status="approved")
+        locations = all_jobs.values_list("location", flat=True).distinct()
+
+        context = {
+            "jobs": jobs_page,
+            "total_count": jobs.count(),
+            "job_types": JobPost.JOB_TYPE_CHOICES,
+            "experience_levels": JobPost.EXPERIENCE_LEVEL_CHOICES,
+            "locations": sorted(set(locations)),
+            # Current filter values
+            "current_type": job_type,
+            "current_experience": experience,
+            "current_location": location,
+            "current_remote": remote_only,
+            "current_search": search,
+        }
+
+        return render(request, self.template_name, context)
+
+
+class PublicJobDetailView(View):
+    """
+    Public view of a single approved job post.
+    Anyone can view approved jobs without logging in.
+    """
+
+    template_name = "jobs/public_job_detail.html"
+
+    def get(self, request, slug):
+        # Only show approved, non-expired jobs
+        job = get_object_or_404(
+            JobPost,
+            slug=slug,
+            status="approved"
+        )
+
+        # Check if expired
+        if job.is_expired:
+            raise Http404("This job posting has expired.")
+
+        # Get related jobs (same company or similar job type)
+        related_jobs = JobPost.objects.filter(
+            status="approved"
+        ).filter(
+            Q(expires_at__isnull=True) | Q(expires_at__gt=timezone.now())
+        ).filter(
+            Q(company_name=job.company_name) | Q(job_type=job.job_type)
+        ).exclude(pk=job.pk)[:4]
+
+        context = {
+            "job": job,
+            "related_jobs": related_jobs,
+        }
+
+        return render(request, self.template_name, context)
 
 
 # ==============================================================================

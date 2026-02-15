@@ -2,7 +2,7 @@
 {# Navigation Bar - Fixed position, scroll-aware #}
 <nav class="navbar">
   <div class="container">
-    <a href="#" class="nav-logo">{{ self.hero_name|default:"Anupam" }}<span>.</span></a>
+    <a href="/" class="nav-logo">{{ self.hero_name|default:"Anupam" }}<span>.</span></a>
     <ul class="nav-links">
       {% for anchor, label in nav_sections %}
         <li>
@@ -11,6 +11,10 @@
           </a>
         </li>
       {% endfor %}
+      {# Jobs link - always visible #}
+      <li>
+        <a href="{% url 'jobs:public_job_list' %}">Jobs</a>
+      </li>
     </ul>
     <div class="nav-toggle">
       <span></span><span></span><span></span>
