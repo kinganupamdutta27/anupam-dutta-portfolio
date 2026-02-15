@@ -67,6 +67,24 @@ X_FRAME_OPTIONS = "DENY"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # =============================================================================
+# MEDIA FILES (Cloudinary for cloud storage)
+# =============================================================================
+
+# Check if Cloudinary is configured
+CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL", "")
+
+if CLOUDINARY_URL:
+    # Add cloudinary to installed apps
+    INSTALLED_APPS += ["cloudinary_storage", "cloudinary"]  # noqa: F405
+    
+    # Use Cloudinary for media storage
+    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+    
+    # Cloudinary settings (parsed from CLOUDINARY_URL automatically)
+    import cloudinary
+    cloudinary.config(secure=True)
+
+# =============================================================================
 # EMAIL (SMTP for production)
 # =============================================================================
 
